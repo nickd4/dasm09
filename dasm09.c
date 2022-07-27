@@ -75,6 +75,65 @@ int main(int argc, char *argv[])
    FILE *f;
    FILE *out=stdout;
 
+#if 1 // for use with decode_6809.py
+   static byte mem[6];
+   memory = mem;
+
+   printf("addressing modes\n");
+   for (int i = 0; i < 0x100; ++i) {
+     mem[0] = 0x30;
+     mem[1] = i;
+     mem[2] = 0x12;
+     mem[3] = 0x34;
+     mem[4] = 0x56;
+     mem[5] = 0x78;
+     Dasm(buf, 0);
+     printf("%s\n", buf);
+   }
+   printf("\n");
+
+   printf("opcodes\n");
+   for (int i = 0; i < 0x100; ++i) {
+     mem[0] = i;
+     mem[1] = 0x12;
+     mem[2] = 0x34;
+     mem[3] = 0x56;
+     mem[4] = 0x78;
+     mem[5] = 0x9a;
+     Dasm(buf, 0);
+     printf("%s\n", buf);
+   }
+   printf("\n");
+
+   printf("opcodes 0x10\n");
+   for (int i = 0; i < 0x100; ++i) {
+     mem[0] = 0x10;
+     mem[1] = i;
+     mem[2] = 0x12;
+     mem[3] = 0x34;
+     mem[4] = 0x56;
+     mem[5] = 0x78;
+     Dasm(buf, 0);
+     printf("%s\n", buf);
+   }
+   printf("\n");
+
+   printf("opcodes 0x11\n");
+   for (int i = 0; i < 0x100; ++i) {
+     mem[0] = 0x11;
+     mem[1] = i;
+     mem[2] = 0x12;
+     mem[3] = 0x34;
+     mem[4] = 0x56;
+     mem[5] = 0x78;
+     Dasm(buf, 0);
+     printf("%s\n", buf);
+   }
+   printf("\n");
+
+   return 0;
+#endif
+
    printf("dasm09: M6809/H6309/OS9 disassembler V0.1 © 2000 Arto Salmi\n");
 
    for (i=1,n=0;i<argc;++i)
